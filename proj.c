@@ -169,6 +169,8 @@ int **get_matrix(char *filename, int size) {
 }
 
 int main(int argc, char *argv[]){
+    //printf("%s::%s::%s\n", argv[1], argv[2],argv[3]);
+
 	if (argc == 1){
 		print_help();
 	}else if (argc >= 2) {
@@ -194,9 +196,12 @@ int main(int argc, char *argv[]){
                 printout_matrix(matrix, size, size);
                 printf("Prozatimni reseni\n\n");
 
-                int cost[N][N],i,j,w,co; //,ch
+                int cost[N][N],i,j,weight,co; //,ch
+                int max_weight;
                 int source, target,x,y;
                 printf("Dijsktra is here \n\n");
+                printf("Enter the weight of the path between nodes:\n");
+                scanf("%d",&max_weight);
                 for(i=1;i< N;i++)
                     for(j=1;j< N;j++)
                         cost[i][j] = IN;
@@ -204,9 +209,9 @@ int main(int argc, char *argv[]){
                 {
                     for(y=x+1;y< N;y++)
                     {
-                        printf("Enter the weight of the path between nodes %d and %d: ",x,y);
-                        scanf("%d",&w);
-                        cost [x][y] = cost[y][x] = w;
+                        weight = (rand() % max_weight); //generovani ceny hran
+                        printf("weight%i\n", weight);
+                        cost [x][y] = cost[y][x] = weight;
                     }
                     printf("\n");
                 }
