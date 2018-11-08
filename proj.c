@@ -12,7 +12,7 @@
 size_t safe_usub (size_t x, size_t y) {
     return x > y ? x - y : y - x ;
 }
-
+//presklada prvky pole: poledni = prvni atd.
 char* str_reverse (const char* const str) {
     if (!str) { return NULL; }
 
@@ -205,6 +205,8 @@ int main(int argc, char *argv[]){
                     for(y=x+1;y< N;y++)
                     {
                         printf("Enter the weight of the path between nodes %d and %d: ",x,y);
+                        //TO DO!
+                        //dopsat generator nahodnych cisel!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                         scanf("%d",&w);
                         cost [x][y] = cost[y][x] = w;
                     }
