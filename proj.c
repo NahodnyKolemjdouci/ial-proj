@@ -33,7 +33,7 @@ int dijsktra(int cost[][N],int source,int target)
 {
     int dist[N],prev[N],selected[N]={0},i,m,min,start,d,j;
     char path[N];
-    for(i=1;i< N;i++)
+    for(i=0;i< N;i++)
     {
         dist[i] = IN;
         prev[i] = -1;
@@ -45,7 +45,7 @@ int dijsktra(int cost[][N],int source,int target)
     {
         min = IN;
         m = 0;
-        for(i=1;i< N;i++)
+        for(i=0;i< N;i++)
         {
             d = dist[start] +cost[start][i];
             if(d< dist[i]&&selected[i]==0)
@@ -171,50 +171,31 @@ int **get_matrix(char *filename, int size) {
 int main(int argc, char *argv[]){
 	if (argc == 1){
 		print_help();
-	}else if (argc >= 2) {
-        int** matrix;
-		int size = count_lines(argv[1]);
-
-		if (argc == 2) {
-            if (size > 0) {
-                printf("\n Matrix: %s \n",argv[1]);
-                printf("Pocet uzlu grafu: %d\n", size);
-                matrix = get_matrix(argv[1], size);
-                printout_matrix(matrix, size, size);
-                deallocate_mem(&matrix);
-            } else {
-                fprintf(stderr, "Graf je prazdny\n");
-                return(-1);
-            }
-		} else if (argc == 3 && (strcmp(argv[2], "dijkstra")) == 0) {
+	}else  if (argc == 2) {
+            int size = count_lines(argv[1]);
+            int** matrix;
             if (size > 0) {
                 matrix = get_matrix(argv[1], size);
                 printf("Matrix: %s \n",argv[1]);
                 printf("Pocet uzlu grafu: %d\n", size);
                 printout_matrix(matrix, size, size);
-                printf("Prozatimni reseni\n\n");
 
-                int cost[N][N],i,j,w,co; //,ch
-                int source, target,x,y;
-                printf("Dijsktra is here \n\n");
-                for(i=1;i< N;i++)
-                    for(j=1;j< N;j++)
-                        cost[i][j] = IN;
-                for(x=1;x< N;x++)
-                {
-                    for(y=x+1;y< N;y++)
-                    {
-                        printf("Enter the weight of the path between nodes %d and %d: ",x,y);
-                        //TO DO!
-                        //dopsat generator nahodnych cisel!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                        scanf("%d",&w);
-                        cost [x][y] = cost[y][x] = w;
+
+                printf("Prozatimni reseni\n\n");
+                int cost[N][N],i,j,co;
+                int source, target;
+                for(i=0;i< size;i++) {
+                    for (j = 0; j < i; j++) {
+                        if (matrix[i][j] == 0) {
+                            cost[i][j] = cost[j][i] = IN;
+                        } else {
+                            cost[i][j] = cost[j][i] = matrix[i][j];
+                        }
                     }
-                    printf("\n");
                 }
-                printf("\nEnter the source:");
+                printf("\nZadejte cil:");
                 scanf("%d", &source);
-                printf("\nEnter the target");
+                printf("\nZadejte pocatecni misto:");
                 scanf("%d", &target);
                 co = dijsktra(cost,source,target);
                 printf("\nThe Shortest Path: %d\n",co);
@@ -225,7 +206,7 @@ int main(int argc, char *argv[]){
                 fprintf(stderr, "Graf je prazdny\n");
                 return(-1);
             }
-		}
+
 	} else {
 		fprintf(stderr, "Zadny soubor\n");
 		print_help();
