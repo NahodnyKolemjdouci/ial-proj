@@ -40,7 +40,7 @@ int dijsktra(int **cost, int source, int target, int size) {
     start = source;
     selected[start] = 1;
     dist[start] = 0;
-    //while (selected[target] == 0) {
+   // while (selected[target] == 0) {
     j=0;
     while (j<size) {
         min = IN;
@@ -82,8 +82,8 @@ void print_help() {
     printf("Použití: \n ./proj + [graf.txt] +[-b(Bellman Ford)|-d(Dijkstra)]\n");
 }
 
-int *allocate_mem(int ***arr, int n, int m) {
-    *arr = (int **) malloc(n * sizeof(int *));
+int *allocate_mem(int*** arr, int n, int m) {
+    *arr = (int**)malloc(n * sizeof(int*));
     int *arr_data = malloc(n * m * sizeof(int));
     for (int i = 0; i < n; i++) {
         (*arr)[i] = arr_data + i * m;
@@ -91,7 +91,7 @@ int *allocate_mem(int ***arr, int n, int m) {
     return arr_data; //free point
 }
 
-void deallocate_mem(int ***arr) {
+void deallocate_mem(int*** arr) {
     free(*arr);
     *arr = NULL;
 }
@@ -103,12 +103,13 @@ int count_lines(char *filename) {
         fprintf(stderr, "Chyba otevirani souboru\n");
         exit(-2);
     }
-    char ch;
+    char ch, last;
     while (!feof(file)) {
         ch = fgetc(file);
-        if (ch == '\n') {
+        if (ch == '\n' && last !='\n') {
             lines++;
         }
+        last = ch;
     }
     if (lines > 0) {
         lines++;
@@ -158,6 +159,9 @@ int **get_matrix(char *filename, int size) {
     }
 
     while ((line = fgets(buffer, sizeof(buffer), file)) != NULL) {
+        if(line[0] == '\n'){
+            break;
+        }
         record = strtok(line, " ,;");
         while (record != NULL) {
             matrix[i][j] = (int) strtol(record, &bin, 10);
@@ -218,12 +222,11 @@ int main(int argc, char *argv[]) {
         print_help();
     } else if (argc == 3 && strcmp(argv[2], "-d") == 0) {
         int size = count_lines(argv[1]);
-        int **matrix;
         int co;
         int source2, target2;
         char source, target;
         if (size > 0) {
-            matrix = get_matrix(argv[1], size);
+            int** matrix = get_matrix(argv[1], size);
             printf("Matrix: %s \n", argv[1]);
             printf("Pocet uzlu grafu: %d\n", size);
             printout_matrix(matrix, size, size);
@@ -272,11 +275,10 @@ int main(int argc, char *argv[]) {
 
     } else if (argc == 3 && strcmp(argv[2], "-b") == 0) {
         int size = count_lines(argv[1]);
-        int **matrix;
         int co;
         int source2, target2;
         char source, target;
-        matrix = get_matrix(argv[1], size);
+        int** matrix = get_matrix(argv[1], size);
         printf("Matrix: %s \n", argv[1]);
         printf("Pocet uzlu grafu: %d\n", size);
         printout_matrix(matrix, size, size);
