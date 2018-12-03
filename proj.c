@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <ctype.h>
 
-#define IN 999 //my "infinite number", used at begening of dijsktra alg.
+#define IN 999999 //my "infinite number", used at begening of dijsktra alg.
 
 // pro zajisteni ze se nedostanu do zapornych cisel
 size_t safe_usub(size_t x, size_t y) {
@@ -30,51 +30,23 @@ char *str_reverse(const char *const str) {
 }
 
 int dijsktra(int **cost, int source, int target, int size) {
-    int dist[size], prev[size],
-    selected[size],
-    i, start,
-    m,
-            min,
-    d,
-            j;
-    char path[size];
+    int dist[size], selected[size], i, start, m, min, d, j;
     for (i = 0; i < size; i++) {
         dist[i] = IN;
         selected[i] = 0;
-        prev[i] = -1;
     }
     start = source;
     selected[start] = 1;
     dist[start] = 0;
-    // while (selected[target] == 0) {
     j = 0;
-   /* while (j<size-1) {
+    while (j < size - 1) {
         min = IN;
         m = 0;
         for (i = 0; i < size; i++) {
-            d = dist[start] + cost[start][i];
-            if (d < dist[i] && selected[i] == 0) {
-                dist[i] = d;
-                prev[i] = start;
-            }
-            if (min > dist[i] && selected[i] == 0) {
-                min = dist[i];
-                m = i;
-            }
-        }
-        start = m;
-        j++;
-        selected[start] = 1;
-    }*/
-    while (j<size-1) {
-        min = IN;
-        m = 0;
-        for (i = 0; i < size; i++) {
-            if(cost[i][start] != 0 ) {
+            if (cost[i][start] != 0) {
                 d = dist[start] + cost[i][start];
                 if (d < dist[i] && selected[i] == 0) {
                     dist[i] = d;
-                    prev[i] = start;
                 }
                 if (min > dist[i] && selected[i] == 0) {
                     min = dist[i];
@@ -86,21 +58,12 @@ int dijsktra(int **cost, int source, int target, int size) {
         j++;
         selected[start] = 1;
     }
-    int tmp = target;
-    j = 0;
-    while (target != -1) {
-        path[j++] = target + 65;
-        target = prev[target];
-    }
-    path[j] = '\0';
-    str_reverse(path);
-    if (dist[tmp] == IN) {
+    if (dist[target] == IN) {
 
         fprintf(stderr, "Cesta neexistuje\n");
         return (-1);
     }
-    printf("%s", path);
-    return dist[tmp];
+    return dist[target];
 }
 
 
@@ -244,28 +207,18 @@ int BellmanFord(int **cost, int size, int target, int source) {
 }
 
 int main(int argc, char *argv[]) {
+    int co, source2, target2, size;
+    char source, target;
     if (argc == 1) {
         print_help();
     } else if (argc == 3 && strcmp(argv[2], "-d") == 0) {
-        int size = count_lines(argv[1]);
-        int co;
-        int source2, target2;
-        char source, target;
+        size = count_lines(argv[1]);
         if (size > 0) {
             int **matrix = get_matrix(argv[1], size);
             printf("Matrix: %s \n", argv[1]);
             printf("Pocet uzlu grafu: %d\n", size);
             printout_matrix(matrix, size, size);
 
-
-            // nastavim vsechny 0 na IN(999)
-            /*for (int i = 0; i < size; i++) {
-                for (int j = 0; j < i; j++) {
-                    if (matrix[i][j] == 0) {
-                        matrix[i][j] = matrix[j][i] = IN;
-                    }
-                }
-            }*/
 
             printf("\nZadejte pocatecni misto:");
             scanf("%s", &target);
@@ -300,44 +253,46 @@ int main(int argc, char *argv[]) {
         }
 
     } else if (argc == 3 && strcmp(argv[2], "-b") == 0) {
-        int size = count_lines(argv[1]);
-        int co;
-        int source2, target2;
-        char source, target;
-        int **matrix = get_matrix(argv[1], size);
-        printf("Matrix: %s \n", argv[1]);
-        printf("Pocet uzlu grafu: %d\n", size);
-        printout_matrix(matrix, size, size);
+        size = count_lines(argv[1]);
+        if (size > 0) {
+            int **matrix = get_matrix(argv[1], size);
+            printf("Matrix: %s \n", argv[1]);
+            printf("Pocet uzlu grafu: %d\n", size);
+            printout_matrix(matrix, size, size);
 
-        printf("\nZadejte pocatecni misto:");
-        scanf("%s", &target);
-        if (!isdigit(target)) {
-            target2 = target - 65;
+            printf("\nZadejte pocatecni misto:");
+            scanf("%s", &target);
+            if (!isdigit(target)) {
+                target2 = target - 65;
+            } else {
+                target2 = target - '0';
+            }
+
+            printf("\nZadejte cil:");
+            scanf("%s", &source);
+            if (!isdigit(source)) {
+                source2 = source - 65;
+            } else {
+                source2 = source - '0';
+            }
+
+            if (source2 > (size - 1) || target2 > (size - 1)) {
+                fprintf(stderr, "Spatny cil nebo start\n");
+                return (-1);
+            }
+
+            co = BellmanFord(matrix, size, target2, source2);
+            if (co >= 0) {
+                printf("\nNejkratsi cesta: %d\n", co);
+            } else {
+                fprintf(stderr, "Cesta neexistuje\n");
+                return (-1);
+            }
+            deallocate_mem(&matrix);
         } else {
-            target2 = target - '0';
-        }
-
-        printf("\nZadejte cil:");
-        scanf("%s", &source);
-        if (!isdigit(source)) {
-            source2 = source - 65;
-        } else {
-            source2 = source - '0';
-        }
-
-        if (source2 > (size - 1) || target2 > (size - 1)) {
-            fprintf(stderr, "Spatny cil nebo start\n");
+            fprintf(stderr, "Graf je prazdny\n");
             return (-1);
         }
-
-        co = BellmanFord(matrix, size, target2, source2);
-        if (co >= 0) {
-            printf("\nNejkratsi cesta: %d\n", co);
-        } else {
-            fprintf(stderr, "Cesta neexistuje\n");
-            return (-1);
-        }
-        deallocate_mem(&matrix);
     } else {
         fprintf(stderr, "Zadny soubor\n");
         print_help();
