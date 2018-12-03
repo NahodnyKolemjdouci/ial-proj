@@ -61,6 +61,8 @@ int dijsktra(int **cost, int source, int target, int size) {
     if (dist[target] == IN) {
 
         fprintf(stderr, "Cesta neexistuje\n");
+
+        exit(-1);
         return (-1);
     }
     return dist[target];
@@ -187,10 +189,9 @@ int BellmanFord(int **cost, int size, int target, int source) {
         for (j = 0; j < size; j++) {
             if (cost[i][j] != 0) {
                 if (distance[j] > distance[i] + cost[i][j]) {
-                    puts("Negativni");
+                    fprintf(stderr, "Negativni cyklus\n");
                     free(distance);
-
-                    return (-1);
+                    exit(-1);
                 }
             }
         }
@@ -199,6 +200,7 @@ int BellmanFord(int **cost, int size, int target, int source) {
     if (distance[source] == IN) {
 
         fprintf(stderr, "Cesta neexistuje\n");
+        exit(-1);
         return (-1);
     }
     return distance[source];
@@ -236,15 +238,14 @@ int main(int argc, char *argv[]) {
                 source2 = source - '0';
             }
 
-            if (source2 > (size - 1) || target2 > (size - 1)) {
+            if (source2 > (size - 1) || source2 < 0|| target2 < 0 || target2 > (size - 1)) {
                 fprintf(stderr, "Spatny cil nebo start\n");
                 return (-1);
             }
             co = dijsktra(matrix, source2, target2, size);
 
-            if (co >= 0) {
                 printf("\nNejkratsi cesta: %d\n", co);
-            }
+           
             deallocate_mem(&matrix);
 
         } else {
@@ -276,18 +277,13 @@ int main(int argc, char *argv[]) {
                 source2 = source - '0';
             }
 
-            if (source2 > (size - 1) || target2 > (size - 1)) {
+            if (source2 > (size - 1) || source2 < 0|| target2 < 0 || target2 > (size - 1)) {
                 fprintf(stderr, "Spatny cil nebo start\n");
                 return (-1);
             }
 
             co = BellmanFord(matrix, size, target2, source2);
-            if (co >= 0) {
-                printf("\nNejkratsi cesta: %d\n", co);
-            } else {
-                fprintf(stderr, "Cesta neexistuje\n");
-                return (-1);
-            }
+            printf("\nNejkratsi cesta: %d\n", co);
             deallocate_mem(&matrix);
         } else {
             fprintf(stderr, "Graf je prazdny\n");
