@@ -11,10 +11,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7094aa56-8166-4c6e-a32d-1fa591be4302" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proj.c" beforeDir="false" afterPath="$PROJECT_DIR$/proj.c" afterDir="false" />
-    </list>
+    <list default="true" id="7094aa56-8166-4c6e-a32d-1fa591be4302" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -68,8 +65,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="14" />
+            <state relative-caret-position="90">
+              <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -86,16 +83,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/proj.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="190" column="51" selection-start-line="190" selection-start-column="51" selection-end-line="190" selection-end-column="51" />
+            <state relative-caret-position="555">
+              <caret line="187" column="2" selection-start-line="187" selection-start-column="2" selection-end-line="187" selection-end-column="2" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
-                <element signature="e#1685#1751#0" />
-                <element signature="e#1753#1989#0" />
-                <element signature="e#1992#2057#0" />
-                <element signature="e#2059#2367#0" />
-                <element signature="e#2369#2689#0" />
-                <element signature="e#2691#3328#0" />
               </folding>
             </state>
           </provider>
@@ -149,7 +140,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -161,6 +151,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -216,13 +207,12 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7511000" />
+    <option name="totallyTimeSpent" value="7512000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-3" width="1366" height="771" extended-state="7" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13409092" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11515152" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -256,8 +246,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="14" />
+        <state relative-caret-position="90">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -280,16 +270,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/proj.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="190" column="51" selection-start-line="190" selection-start-column="51" selection-end-line="190" selection-end-column="51" />
+        <state relative-caret-position="555">
+          <caret line="187" column="2" selection-start-line="187" selection-start-column="2" selection-end-line="187" selection-end-column="2" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#1685#1751#0" />
-            <element signature="e#1753#1989#0" />
-            <element signature="e#1992#2057#0" />
-            <element signature="e#2059#2367#0" />
-            <element signature="e#2369#2689#0" />
-            <element signature="e#2691#3328#0" />
           </folding>
         </state>
       </provider>
