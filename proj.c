@@ -135,7 +135,7 @@ void printout_matrix(int **matrix, int rows, int columns) {
 
 int **get_matrix(char *filename, int size) {
 
-    char *buffer = (char*) malloc(sizeof(char)*size);
+    char buffer[8192];
     char *record, *line;
     int i = 0, j = 0;
     int **matrix;
@@ -160,7 +160,7 @@ int **get_matrix(char *filename, int size) {
         }
         record = strtok(line, " ,;");
         while (record != NULL) {
-            matrix[i][j] = (int) strtol(record, &bin, 10);
+            matrix[i][j] = (int)strtol(record, &bin, 10);
             record = strtok(NULL, " ,;");
             j++;
         }
