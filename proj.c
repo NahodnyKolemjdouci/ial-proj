@@ -6,12 +6,13 @@
 #include <ctype.h>
 
 #define IN 999999 //my "infinite number", used at begening of dijsktra alg.
-
+/*
 // pro zajisteni ze se nedostanu do zapornych cisel
 size_t safe_usub(size_t x, size_t y) {
     return x > y ? x - y : y - x;
 }
-
+*/
+/*
 //presklada prvky pole: poledni = prvni atd.
 char *str_reverse(const char *const str) {
     if (!str) { return NULL; }
@@ -28,6 +29,7 @@ char *str_reverse(const char *const str) {
 
     return revesre;
 }
+*/
 
 int dijsktra(int **cost, int source, int target, int size) {
     int dist[size], selected[size], i, start, m, min, d, j;
@@ -63,7 +65,7 @@ int dijsktra(int **cost, int source, int target, int size) {
         fprintf(stderr, "Cesta neexistuje\n");
 
         exit(-1);
-        return (-1);
+        //return (-1);
     }
     return dist[target];
 }
@@ -109,18 +111,25 @@ int count_lines(char *filename) {
 
 }
 
+void print_with_indent(int indent, int number)
+{
+    printf("%*s%i", indent, "", number);
+}
+
 void printout_matrix(int **matrix, int rows, int columns) {
     int i, j;
+
     printf("  ");
     for (i = 0; i < columns; i++) {
-        printf("n%i ", i);//+ 65
+        printf("\tn%i ", i);//+ 65
+
     }
     printf("\n");
 
     for (i = 0; i < rows; i++) {
         printf("n%i ", i );//+ 65
         for (j = 0; j < columns; j++) {
-            printf("%d ", matrix[i][j]);
+            printf("\t%d ", matrix[i][j]);
         }
         printf("\n");
         j = 0;
@@ -201,7 +210,7 @@ int BellmanFord(int **cost, int size, int target, int source) {
 
         fprintf(stderr, "Cesta neexistuje\n");
         exit(-1);
-        return (-1);
+        //return (-1);
     }
     return distance[source];
 
@@ -221,7 +230,7 @@ int main(int argc, char *argv[]) {
             printf("Pocet uzlu grafu: %d\n", size);
             printout_matrix(matrix, size, size);
 
-
+            return 0;
             printf("\nZadejte pocatecni misto:");
             scanf("%s", &target);
             if (!isdigit(target)) {
@@ -261,6 +270,7 @@ int main(int argc, char *argv[]) {
             printf("Pocet uzlu grafu: %d\n", size);
             printout_matrix(matrix, size, size);
 
+            return 0;
             printf("\nZadejte pocatecni misto:");
             scanf("%s", &target);
             if (!isdigit(target)) {
