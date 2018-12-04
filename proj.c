@@ -61,7 +61,7 @@ int dijsktra(int **cost, int source, int target, int size) {
     }
     if (dist[target] == IN) {
 
-        fprintf(stderr, "Cesta neexistuje\n");
+        fprintf(stderr, "Path does not exist\n");
 
         exit(-1);
         //return (-1);
@@ -70,7 +70,7 @@ int dijsktra(int **cost, int source, int target, int size) {
 }
 
 void print_help() {
-    printf("Použití: \n ./proj + [graf.txt] +[-b(Bellman Ford)|-d(Dijkstra)]\n");
+    printf("Usage: \n ./proj + [graf.txt] +[-b(Bellman Ford)|-d(Dijkstra)]\n");
 }
 
 int *allocate_mem(int ***arr, int n, int m) {
@@ -91,7 +91,7 @@ int count_lines(char *filename) {
     int lines = 0;
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
-        fprintf(stderr, "Chyba otevirani souboru\n");
+        fprintf(stderr, "Can't open file\n");
         exit(-2);
     }
     char ch, last;
@@ -145,13 +145,13 @@ int **get_matrix(char *filename, int size) {
     allocate_mem(&matrix, size, size);
 
     if (matrix == NULL) {
-        fprintf(stderr, "Chyba pameti\n");
+        fprintf(stderr, "Malloc error\n");
         exit(-3);
     }
 
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
-        fprintf(stderr, "Chyba otevirani souboru\n");
+        fprintf(stderr, "Can't open file\n");
         exit(-2);
     }
 
@@ -195,7 +195,7 @@ int BellmanFord(int **cost, int size, int target, int source) {
         for (j = 0; j < size; j++) {
             if (cost[i][j] != 0) {
                 if (distance[j] > distance[i] + cost[i][j]) {
-                    fprintf(stderr, "Negativni cyklus\n");
+                    fprintf(stderr, "Negative cycle\n");
                     free(distance);
                     exit(-1);
                 }
@@ -205,7 +205,7 @@ int BellmanFord(int **cost, int size, int target, int source) {
 
     if (distance[source] == IN) {
 
-        fprintf(stderr, "Cesta neexistuje\n");
+        fprintf(stderr, "Path does not exist\n");
         exit(-1);
         //return (-1);
     }
@@ -226,10 +226,10 @@ int main(int argc, char *argv[]) {
         if (size > 0) {
             int **matrix = get_matrix(argv[1], size);
             printf("Matrix: %s \n", argv[1]);
-            printf("Pocet uzlu grafu: %d\n", size);
+            printf("Node count: %d\n", size);
             printout_matrix(matrix, size, size);
 
-            printf("\nZadejte pocatecni misto:");
+            printf("\nEnter starting node:");
             scanf("%i", &target2);
             //printf("\ntarget2: %i\n",target2);
 
@@ -242,7 +242,7 @@ int main(int argc, char *argv[]) {
             printf("\ntarget2: %i\n",target2);
             */
 
-            printf("\nZadejte cil:");
+            printf("\nEnter goal:");
             scanf("%i", &source2);
             //printf("\nsrc2: %i\n",source2);
 
@@ -267,7 +267,7 @@ int main(int argc, char *argv[]) {
 
             end = clock();
 
-            printf("\nNejkratsi cesta: %d\n", co);
+            printf("\nShortest path: %d\n", co);
 
             time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
             printf("\nTime: %f\n", time_spent);
@@ -275,7 +275,7 @@ int main(int argc, char *argv[]) {
             deallocate_mem(&matrix);
 
         } else {
-            fprintf(stderr, "Graf je prazdny\n");
+            fprintf(stderr, "Graph is empty\n");
             return (-1);
         }
 
@@ -284,10 +284,10 @@ int main(int argc, char *argv[]) {
         if (size > 0) {
             int **matrix = get_matrix(argv[1], size);
             printf("Matrix: %s \n", argv[1]);
-            printf("Pocet uzlu grafu: %d\n", size);
+            printf("Node count: %d\n", size);
             printout_matrix(matrix, size, size);
 
-            printf("\nZadejte pocatecni misto:");
+            printf("\nEnter starting node:");
             scanf("%i", &target2);
 
             /*
@@ -298,7 +298,7 @@ int main(int argc, char *argv[]) {
             }
             */
 
-            printf("\nZadejte cil:");
+            printf("\nEnter goal:");
             scanf("%i", &source2);
 
             /*
@@ -319,18 +319,18 @@ int main(int argc, char *argv[]) {
             co = BellmanFord(matrix, size, target2, source2);
             end = clock();
 
-            printf("\nNejkratsi cesta: %d\n", co);
+            printf("\nShortest path: %d\n", co);
 
             time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
             printf("\nTime: %f\n", time_spent);
 
             deallocate_mem(&matrix);
         } else {
-            fprintf(stderr, "Graf je prazdny\n");
+            fprintf(stderr, "Graph is empty\n");
             return (-1);
         }
     } else {
-        fprintf(stderr, "Zadny soubor\n");
+        fprintf(stderr, "Can't open file\n");
         print_help();
         return -1;
     }
