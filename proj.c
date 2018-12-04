@@ -216,7 +216,6 @@ int BellmanFord(int **cost, int size, int target, int source) {
 
 int main(int argc, char *argv[]) {
     int co, source2, target2, size;
-    //char source, target;
     clock_t begin, end;
     double time_spent;
     if (argc == 1) {
@@ -231,35 +230,14 @@ int main(int argc, char *argv[]) {
 
             printf("\nEnter starting node:");
             scanf("%i", &target2);
-            //printf("\ntarget2: %i\n",target2);
-
-            /*
-            if (!isdigit(target)) {
-                target2 = target - 65;
-            } else {
-                target2 = target - '0';
-            }
-            printf("\ntarget2: %i\n",target2);
-            */
 
             printf("\nEnter goal:");
             scanf("%i", &source2);
-            //printf("\nsrc2: %i\n",source2);
 
-            /*
-            if (!isdigit(source)) {
-                source2 = source - 65;
-            } else {
-                source2 = source - '0';
-            }
-            */
-
-            /*
             if (source2 > (size - 1) || source2 < 0|| target2 < 0 || target2 > (size - 1)) {
                 fprintf(stderr, "Spatny cil nebo start\n");
                 return (-1);
             }
-             */
 
             begin = clock();
 
@@ -290,30 +268,14 @@ int main(int argc, char *argv[]) {
             printf("\nEnter starting node:");
             scanf("%i", &target2);
 
-            /*
-            if (!isdigit(target)) {
-                target2 = target - 65;
-            } else {
-                target2 = target - '0';
-            }
-            */
 
             printf("\nEnter goal:");
             scanf("%i", &source2);
 
-            /*
-            if (!isdigit(source)) {
-                source2 = source - 65;
-            } else {
-                source2 = source - '0';
-            }
-             */
-            /*
             if (source2 > (size - 1) || source2 < 0|| target2 < 0 || target2 > (size - 1)) {
                 fprintf(stderr, "Spatny cil nebo start\n");
                 return (-1);
             }
-             */
 
             begin = clock();
             co = BellmanFord(matrix, size, target2, source2);

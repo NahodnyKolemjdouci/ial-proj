@@ -26,7 +26,7 @@ int get_random (int max) {
 int create_graphs(int n, bool orient, int max) {
 	FILE *file;
 	int i;
-	for (i = 0; i < n; i++) {
+	for (i = 0; i < n; i+=10) {
 		
 		char filename[11];
 		int j, k;
