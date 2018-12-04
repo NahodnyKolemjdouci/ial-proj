@@ -113,12 +113,12 @@ void printout_matrix(int **matrix, int rows, int columns) {
     int i, j;
     printf("  ");
     for (i = 0; i < columns; i++) {
-        printf("%c ", i + 65);
+        printf("n%i ", i);//+ 65
     }
     printf("\n");
 
     for (i = 0; i < rows; i++) {
-        printf("%c ", i + 65);
+        printf("n%i ", i );//+ 65
         for (j = 0; j < columns; j++) {
             printf("%d ", matrix[i][j]);
         }
