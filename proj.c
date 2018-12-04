@@ -230,7 +230,6 @@ int main(int argc, char *argv[]) {
             printf("Pocet uzlu grafu: %d\n", size);
             printout_matrix(matrix, size, size);
 
-            return 0;
             printf("\nZadejte pocatecni misto:");
             scanf("%s", &target);
             if (!isdigit(target)) {
