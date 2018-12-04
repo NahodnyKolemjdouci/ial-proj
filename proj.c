@@ -136,7 +136,8 @@ void printout_matrix(int **matrix, int rows, int columns) {
 int **get_matrix(char *filename, int size) {
 
 
-    char buffer[1024];
+    //char buffer[1024];
+    char *buffer = (char*) malloc(sizeof(char)*size);
     char *record, *line;
     int i = 0, j = 0;
     int **matrix;
