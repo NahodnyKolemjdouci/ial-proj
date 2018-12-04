@@ -4,15 +4,15 @@
 #include <errno.h>
 #include <stdbool.h>
 #include <ctype.h>
+#include <time.h>
 
 #define IN 999999 //my "infinite number", used at begening of dijsktra alg.
-/*
+
 // pro zajisteni ze se nedostanu do zapornych cisel
 size_t safe_usub(size_t x, size_t y) {
     return x > y ? x - y : y - x;
 }
-*/
-/*
+
 //presklada prvky pole: poledni = prvni atd.
 char *str_reverse(const char *const str) {
     if (!str) { return NULL; }
@@ -29,7 +29,6 @@ char *str_reverse(const char *const str) {
 
     return revesre;
 }
-*/
 
 int dijsktra(int **cost, int source, int target, int size) {
     int dist[size], selected[size], i, start, m, min, d, j;
@@ -69,7 +68,6 @@ int dijsktra(int **cost, int source, int target, int size) {
     }
     return dist[target];
 }
-
 
 void print_help() {
     printf("Použití: \n ./proj + [graf.txt] +[-b(Bellman Ford)|-d(Dijkstra)]\n");
@@ -111,8 +109,7 @@ int count_lines(char *filename) {
 
 }
 
-void print_with_indent(int indent, int number)
-{
+void print_with_indent(int indent, int number) {
     printf("%*s%i", indent, "", number);
 }
 
@@ -127,7 +124,7 @@ void printout_matrix(int **matrix, int rows, int columns) {
     printf("\n");
 
     for (i = 0; i < rows; i++) {
-        printf("n%i ", i );//+ 65
+        printf("n%i ", i);//+ 65
         for (j = 0; j < columns; j++) {
             printf("\t%d ", matrix[i][j]);
         }
@@ -219,7 +216,9 @@ int BellmanFord(int **cost, int size, int target, int source) {
 
 int main(int argc, char *argv[]) {
     int co, source2, target2, size;
-    char source, target;
+    //char source, target;
+    clock_t begin, end;
+    double time_spent;
     if (argc == 1) {
         print_help();
     } else if (argc == 3 && strcmp(argv[2], "-d") == 0) {
@@ -231,29 +230,48 @@ int main(int argc, char *argv[]) {
             printout_matrix(matrix, size, size);
 
             printf("\nZadejte pocatecni misto:");
-            scanf("%s", &target);
+            scanf("%i", &target2);
+            //printf("\ntarget2: %i\n",target2);
+
+            /*
             if (!isdigit(target)) {
                 target2 = target - 65;
             } else {
                 target2 = target - '0';
             }
+            printf("\ntarget2: %i\n",target2);
+            */
 
             printf("\nZadejte cil:");
-            scanf("%s", &source);
+            scanf("%i", &source2);
+            //printf("\nsrc2: %i\n",source2);
+
+            /*
             if (!isdigit(source)) {
                 source2 = source - 65;
             } else {
                 source2 = source - '0';
             }
+            */
 
+            /*
             if (source2 > (size - 1) || source2 < 0|| target2 < 0 || target2 > (size - 1)) {
                 fprintf(stderr, "Spatny cil nebo start\n");
                 return (-1);
             }
+             */
+
+            begin = clock();
+
             co = dijsktra(matrix, source2, target2, size);
 
-                printf("\nNejkratsi cesta: %d\n", co);
-           
+            end = clock();
+
+            printf("\nNejkratsi cesta: %d\n", co);
+
+            time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+            printf("\nTime: %f\n", time_spent);
+
             deallocate_mem(&matrix);
 
         } else {
@@ -270,28 +288,42 @@ int main(int argc, char *argv[]) {
             printout_matrix(matrix, size, size);
 
             printf("\nZadejte pocatecni misto:");
-            scanf("%s", &target);
+            scanf("%i", &target2);
+
+            /*
             if (!isdigit(target)) {
                 target2 = target - 65;
             } else {
                 target2 = target - '0';
             }
+            */
 
             printf("\nZadejte cil:");
-            scanf("%s", &source);
+            scanf("%i", &source2);
+
+            /*
             if (!isdigit(source)) {
                 source2 = source - 65;
             } else {
                 source2 = source - '0';
             }
-
+             */
+            /*
             if (source2 > (size - 1) || source2 < 0|| target2 < 0 || target2 > (size - 1)) {
                 fprintf(stderr, "Spatny cil nebo start\n");
                 return (-1);
             }
+             */
 
+            begin = clock();
             co = BellmanFord(matrix, size, target2, source2);
+            end = clock();
+
             printf("\nNejkratsi cesta: %d\n", co);
+
+            time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+            printf("\nTime: %f\n", time_spent);
+
             deallocate_mem(&matrix);
         } else {
             fprintf(stderr, "Graf je prazdny\n");
