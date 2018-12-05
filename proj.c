@@ -1,3 +1,21 @@
+/**
+ * proj.c
+ *
+ * Zadání č.4 - Nejkratší cesta v grafu:
+ * Vytvořte program pro hledání nejkratší cesty v grafu mezi dvěma zadanými vrcholy.
+ * Úlohu řešte pro neorientované i orientované grafy a pro neohodnocené i ohodnocené grafy.
+ * V případě ohodnocených grafů považujte za vzdálenost vrcholů ohodnocení hrany mezi nimi.
+ * Pokud existuje více řešení, nalezněte všechna. Výsledky prezentujte vhodným způsobem.
+ * Součástí projektu bude načítání grafů ze souboru a vhodné testovací grafy.
+ * V dokumentaci uveďte teoretickou složitost úlohy a porovnejte ji s experimentálními výsledky.
+ *
+ * Authors:
+ * xkolbj00
+ * xsalus00
+ * xturek05
+ *
+ * * Posledni zmena 5.12.2018
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,28 +25,6 @@
 #include <time.h>
 
 #define IN 999999 //my "infinite number", used at begening of dijsktra alg.
-
-// pro zajisteni ze se nedostanu do zapornych cisel
-size_t safe_usub(size_t x, size_t y) {
-    return x > y ? x - y : y - x;
-}
-
-//presklada prvky pole: poledni = prvni atd.
-char *str_reverse(const char *const str) {
-    if (!str) { return NULL; }
-
-    size_t len = strlen(str);//strnlen(str, MAX_CHARS);
-    char *revesre = malloc(sizeof(char) * len);
-
-    size_t i;
-    for (i = 0; i < len; i++) {
-        revesre[i] = str[safe_usub(i + 1, len)];
-    }
-
-    revesre[i] = 0;
-
-    return revesre;
-}
 
 int dijsktra(int **cost, int source, int target, int size) {
     int dist[size], selected[size], i, start, m, min, d, j;
@@ -107,10 +103,6 @@ int count_lines(char *filename) {
     }
     return lines;
 
-}
-
-void print_with_indent(int indent, int number) {
-    printf("%*s%i", indent, "", number);
 }
 
 void printout_matrix(int **matrix, int rows, int columns) {

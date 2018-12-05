@@ -1,15 +1,23 @@
+/**
+ * gnereator.c
+ *
+ * Authors:
+ * xkolbj00
+ * xsalus00
+ * xturek05
+ *
+ * Zadání č.4 Nejkratší cesta v grafu
+ * Posledni zmena 5.12.2018
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <stdbool.h>
 
-
-/*
- * Napoveda
- */
 void print_help(){
-	printf("Pouziti: ./generator -size N -orient true/false -max X\n");
+	printf("Usage: ./generator -size N -orient true/false -max X\n");
 }
 
 /* 
@@ -22,7 +30,6 @@ int get_random (int max) {
 /*
  * Generovani grafu
  */
-
 int create_graphs(int n, bool orient, int max) {
 	FILE *file;
 	int i;
@@ -38,44 +45,44 @@ int create_graphs(int n, bool orient, int max) {
 			return -1;
 		}
 		
-		//generovani tabulky
+		//generate table
 		for (j = 0; j < i; j++) {
 			for (k = 0; k < i; k++) {
 				if (k == j) {
 					matrix[j][k] = 0; 
 				} else {
-					//vygeneruj random cislo od 0 po max
+					//generate random 0-max
 					int x = get_random(max);
-					//uloz ho na spravnou pozici
+					//insert into matrix
 					matrix[j][k] = x;
 					if (orient) {
-						//pokud je orientovany, tak na opacnou pozici vlozim 0
+						//if it's oriented insert 0 on oposit position
 						matrix[k][j] = 0;
 					} else {
-						//pokud neni orientovany, tak graf je symetricky podle diagonaly
+						//if not oriented
 						matrix[k][j] = x;
 					}
 				}
 			}
 		}
-		//ulozeni do souboru
+		//save to file
 		for (j = 0; j < i; j++) {
 			for (k = 0; k < i; k++) {
 				if (k + 1 != i) {
-					//neni konec radku
+					//not end of the line
 					fprintf(file, "%d,", matrix[j][k]);
 				} else {
 					if (j + 1 != i){
-						//neni posledni radek
+						//not last line
 						fprintf(file, "%d\n", matrix[j][k]);
 					} else {
-						//posledni radek
+						//last line
 						fprintf(file, "%d", matrix[j][k]);
 					}
 				}
 			}
 		}
-		printf("Graf %d vytvoren\n", i);
+		printf("Graph %d created\n", i);
 		fclose(file);
 	}
 	return n;
@@ -89,19 +96,19 @@ int main(int argc, char *argv[]) {
 	
 	if (argc == 1) {
 		print_help();
-		fprintf(stderr, "Chyba argumentu:");
+		fprintf(stderr, "Invalid argument\n");
 		return -1;
 	} else if (argc == 7) {
 		if (strcmp(argv[1], "-size") == 0) {
 			n =  strtod(argv[2], '\0');
 			if (n <= 0) {
 				print_help();
-				fprintf(stderr, "Chyba argumentu: N je mensi nebo roven 0\n");
+				fprintf(stderr, "Invalid argument: N <= 0\n");
 				return -1;
 			}
 		} else {
 			print_help();
-			fprintf(stderr, "Chyba argumentu");
+			fprintf(stderr, "Invalid argument\n");
 			return -1;
 		}
 		if (strcmp(argv[3], "-orient") == 0) {
@@ -111,12 +118,12 @@ int main(int argc, char *argv[]) {
 				orient = false;
 			} else {
 				print_help();
-				fprintf(stderr, "Chyba argumentu: Neplatna hodnota argumentu -orient");
+				fprintf(stderr, "Invalid argument: invalid value -orient\n");
 				return -1;
 			}
 		} else {
 			print_help();
-			fprintf(stderr, "Chyba argumentu");
+			fprintf(stderr, "Invalid argument\n");
 			return -1;
 		}
 		if (strcmp(argv[5], "-max") == 0) {
@@ -124,17 +131,17 @@ int main(int argc, char *argv[]) {
 			max++;
 			if (n <= 0) {
 				print_help();
-				fprintf(stderr, "Chyba argumentu: max je mensi nebo roven 0\n");
+				fprintf(stderr, "Invalid argument: max <= 0\n");
 				return -1;
 			}
 		} else {
 			print_help();
-			fprintf(stderr, "Chyba argumentu");
+			fprintf(stderr, "Invalid argument\n");
 			return -1;
 		} 
 	} else {
 		print_help();
-		fprintf(stderr, "Chyba argumentu");
+		fprintf(stderr, "Invalid argument\n");
 		return -1;
 	}
 	
