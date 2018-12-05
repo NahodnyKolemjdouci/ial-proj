@@ -60,7 +60,6 @@ int dijsktra(int **cost, int source, int target, int size) {
         fprintf(stderr, "Path does not exist\n");
 
         exit(-1);
-        //return (-1);
     }
     return dist[target];
 }
@@ -198,7 +197,6 @@ int BellmanFord(int **cost, int size, int target, int source) {
 
         fprintf(stderr, "Path does not exist\n");
         exit(-1);
-        //return (-1);
     }
     return distance[source];
 
@@ -226,7 +224,7 @@ int main(int argc, char *argv[]) {
             scanf("%i", &source2);
 
             if (source2 > (size - 1) || source2 < 0|| target2 < 0 || target2 > (size - 1)) {
-                fprintf(stderr, "Spatny cil nebo start\n");
+                fprintf(stderr, "Invalid goal or start\n");
                 return (-1);
             }
 
@@ -264,7 +262,7 @@ int main(int argc, char *argv[]) {
             scanf("%i", &source2);
 
             if (source2 > (size - 1) || source2 < 0|| target2 < 0 || target2 > (size - 1)) {
-                fprintf(stderr, "Spatny cil nebo start\n");
+                fprintf(stderr, "Invalid goal or start\n");
                 return (-1);
             }
 
