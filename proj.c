@@ -247,7 +247,7 @@ int main(int argc, char *argv[]) {
             printf("\nShortest path: %d\n", co);
 
             time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-            printf("\nTime: %f\n", time_spent);
+            printf("\nTime: %f[seconds]\n", time_spent);
 
             deallocate_mem(&matrix);
 
@@ -283,7 +283,7 @@ int main(int argc, char *argv[]) {
             printf("\nShortest path: %d\n", co);
 
             time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-            printf("\nTime: %f\n", time_spent);
+            printf("\nTime: %f[seconds]\n", time_spent);
 
             deallocate_mem(&matrix);
         } else {
